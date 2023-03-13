@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import CheckBoxOutlineBlankRoundedIcon from '@mui/icons-material/CheckBoxOutlineBlankRounded';
+import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined';
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 import { green, orange, red } from '@mui/material/colors';
@@ -81,12 +82,20 @@ const Todo: React.FC = () => {
                     <AddIcon fontSize="small" onClick={handleClick}/>
             </div>
             <div>
-                {todo.map((item,index) =>
+                {todo.map((item,index) => 
                     <>
-                        <CheckBoxOutlineBlankRoundedIcon fontSize="small" sx={{ color: green[500] }}/>
+                        {item.priority === Priority.green && item.complete === false && <CheckBoxOutlineBlankRoundedIcon fontSize="small" sx={{ color: green[500] }}/> }
+                        {item.priority === Priority.orange && item.complete === false && <CheckBoxOutlineBlankRoundedIcon fontSize="small" sx={{ color: orange[500] }}/> }
+                        {item.priority === Priority.red && item.complete === false &&  <CheckBoxOutlineBlankRoundedIcon fontSize="small" sx={{ color: red[500] }}/> }
+
+                        {item.priority === Priority.green && item.complete === true && <CheckBoxOutlinedIcon fontSize="small" sx={{ color: green[500] }}/> }
+                        {item.priority === Priority.orange && item.complete === true && <CheckBoxOutlinedIcon fontSize="small" sx={{ color: orange[500] }}/> }
+                        {item.priority === Priority.red && item.complete === true &&  <CheckBoxOutlinedIcon fontSize="small" sx={{ color: red[500] }}/> }
+
                         <p onClick={() => handleTaskComplete(index)} key={index}>{item.task}</p>
                         <CloseIcon fontSize="small" onClick={() => handleRemoveTask(index)}/>
                     </>
+                
                 )}
             </div>
             <div>
