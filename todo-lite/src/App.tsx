@@ -1,11 +1,17 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Todo from './content/todoList';
+import Todo from './components/todoList';
+import { ChakraProvider } from '@chakra-ui/react';
+import { ColorModeScript } from '@chakra-ui/react'
+import theme from './theme/theme'
+import '@fontsource/inter/600.css';
+
 
 function App() {
   return (
-    <Todo/>
+    <ChakraProvider theme={theme}>
+      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+      <Todo/>
+    </ChakraProvider>
   );
 }
 
