@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import { CloseIcon, SunIcon, MoonIcon } from '@chakra-ui/icons'
 import { Box, Text, Input, InputGroup, HStack, VStack, Flex, Spacer, Button, useColorMode, Checkbox, Center} from '@chakra-ui/react'
 import { motion } from "framer-motion";
@@ -17,6 +17,7 @@ function Todo() {
     const today = new Date();
     const dayName = daysOfWeek[today.getDay()];
     const date = today.getDate();
+
 
     function addTodo() {
         if (input) {
@@ -41,6 +42,20 @@ function Todo() {
           )
         );
       }
+
+    useEffect(() => {
+        chrome.storage.sync.get('todo', (data) => {
+          if (data.todo) {
+            setTodo(data.todo);
+          }
+        });
+    }, []);
+
+    
+    useEffect(() => {
+        chrome.storage.sync.set({ todo });
+    }, [todo]);
+    
     
 
     return (
@@ -76,7 +91,7 @@ function Todo() {
             <Box h="380px" overflowY={'auto'} paddingRight={2}>
             {todo.map((todo) => (
                 <HStack key={todo.id} >
-                    <Flex width={345} maxWidth={345}>
+                    <Flex width={345} maxWidth={345} marginBottom={3}>
                     <Checkbox
                         size='md'
                         isChecked={todo.complete}
