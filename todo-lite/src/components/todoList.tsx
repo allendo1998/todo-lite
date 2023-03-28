@@ -96,11 +96,14 @@ function Todo() {
                         size='md'
                         isChecked={todo.complete}
                         onChange={() => completeTodo(todo.id)}
-                        textDecoration={todo.complete ? "line-through" : "none"}
-                        opacity={todo.complete ? 0.5 : 1}
+                        textDecoration={todo.complete ? "line-through": "none"}
                         wordBreak="break-word"
-                    >
-                        {todo.task}
+                    > 
+                        <Text 
+                            opacity={todo.complete ? 0.5 : 1} 
+                            fontSize='md'>
+                                {todo.task}
+                        </Text>
                     </Checkbox>
                     <Spacer/>
                     {todo.complete && 
